@@ -4,7 +4,7 @@ function binarySearch(element, array, isLogPerformace) {
     let perfomance = 0;
 
     while (low <= high) {
-        let mid = Math.floor((high - low) / 2) + low;
+        let mid = Math.floor((high + low) / 2);
         let guess = array[mid];
         perfomance++;
 
