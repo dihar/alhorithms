@@ -1,3 +1,10 @@
+/**
+ * Двоичный поиск
+ * @param {number} element искомое число
+ * @param {Array[number]} array массив чисел
+ * @param {boolean} isLogPerformace делать ли логирование количества опреций
+ * @return {number} позиция элемента
+ */
 function binarySearch(element, array, isLogPerformace) {
     let low = 0;
     let high = array.length;
@@ -23,7 +30,9 @@ function binarySearch(element, array, isLogPerformace) {
 }
 
 function logPerformance(count, isLogPerformace) {
-    console.log(`Operation count: ${count}`);
+    if (isLogPerformace) {
+        console.log(`Operation count: ${count}`);
+    }
 }
 
 module.exports = binarySearch;

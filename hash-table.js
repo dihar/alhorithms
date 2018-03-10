@@ -1,16 +1,35 @@
+/**
+ * Класс элемента связанного списка
+ */
 class ElList {
+    /**
+     * @param {any} value значение элемента
+     * @param {ElList} [next] ссылка на следующий элемент
+     */
     constructor(value, next = null) {
         this.value = value;
         this.next = next;
     }
 }
 
+/**
+ * Класс связанного списка
+ */
 class List {
+    /**
+     * @param {ElList} [firstElement] ссылка на первый элемент списка
+     * @param {number} [length] длина списка
+     */
     constructor(firstElement, length) {
         this.firstElement = firstElement || null;
-        this.length = length || 0;
+        this.length = length || (firstElement && 1) || 0;
     }
 
+    /**
+     * Добавить элемент в список 
+     * @param {any} value значение нового элемента
+     * @param {number} position позиция, после которой ставить элемент
+     */
     add(value, position = this.length) {
         if (position < 0) {
             position += this.length - 1;
@@ -44,14 +63,26 @@ class List {
         }
     }
 
+    /**
+     * Добавить элемент в голову списка
+     * @param {any} value значение нового элемента
+     */
     addHead(value) {
         return this.add(value, 0);
     }
 
+    /**
+     * Является ли список пустым 
+     * @return {boolean}
+     */
     isEmpty() {
         return Boolean(this.firstElement);
     }
 
+    /**
+     * Получить хвост списка после первого элемента
+     * @return {List}
+     */
     getAfterFirst() {
         if (this.length > 1) {
             return new List(this.firstElement.next, this.length - 1);
@@ -60,6 +91,11 @@ class List {
         return null;
     }
 
+    /**
+     * Произвести обход по элементам, для поиска необходимого
+     * @param {Function} callback если функция возвращает true, то этот элемент возвращается
+     * @return {ElList} элемент связанного списка
+     */
     find(callback) {
         let pointer = this.firstElement;
 
@@ -91,6 +127,11 @@ class List {
     }
 }
 
+/**
+ * Простая хэш функция
+ * @param {string} key ключ для преобразования
+ * @return {number}
+ */
 function hashFunction(key = '') {
     const HASH_SIZE = 16;
     let resultCharsCode = Math.pow(10, HASH_SIZE);
