@@ -1,22 +1,31 @@
 const interact = require('./interactive');
-const { HashTable, List, hashFunction } = require('./hash-table');
-const table = new HashTable;
+const spiralMatrixLog = require('./matrix-log');
+const matrix = (size => {
+    const arr = [];
+    let counter = 0;
+
+    for (i = 0; i < size; i++) {
+        arr.push([]);
+        for (j = 0; j < size; j++) {
+            arr[i].push(++counter < 10 ? ` ${counter}` : counter);
+        }
+        console.log(arr[i].join(', '));
+    }
+
+    return arr;
+})(7);
 
 interact((line) => {
     const [command, ...words] = line.split(' ');
 
     switch (command) {
-        case 'set':
-            const [key, value] = words;
-            table.set(key, value);
-            break;
+        case 'log': {
+            const logArray = [];
+            spiralMatrixLog(matrix, (value) => {
+                logArray.push(value);
+            });
 
-        case 'get':
-            const [keyString] = words;
-            console.log(table.get(keyString));
-            break;
-
-        case 'log':
-            console.log(table + '');
+            console.log(logArray.join(', '));
+        }
     }
 });

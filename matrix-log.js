@@ -10,32 +10,43 @@ function spiralMatrixLog(matrix, logFunction = console.log) {
         return;
     }
 
-    const middle = Math.round(size / 2);
-    const elementCount = Math.pow(size, 2);
+    const middle = Math.floor(size / 2);
 
-    for (let i = 0; i < middle; i++) {
+    for (let i = 0; i <= middle; i++) {
         const sideSize = 1 + i * 2;
-        if (sideSize === 1) {
-            logFunction(matrix[middle][middle])
-        } else {
-            const perimeter = (sideSize - 1) * 4;
+        const perimeter = (sideSize - 1) * 4;
+        const leftCorner = (size - sideSize) / 2;
 
-            for (let j = 0; j < perimeter; j++) {
-                const x = middle;
-                const y = middle;
-                if (j < sideSize - 1) {
-                    const x = (size + sideSize) / 2 - j - 1;
+        if (i === 0) {
+            logFunction(matrix[leftCorner][leftCorner]);
+        }
 
-                }
+        for (let j = 0; j < perimeter; j++) {
+            let x = leftCorner;
+            let y = leftCorner;
 
-                logFunction(matrix[x][y])
-            };
+            if (j < sideSize - 1) {
+                x = leftCorner + sideSize - j - 2;
+            } else if (j < sideSize * 2 - 2) {
+                const offset = sideSize - 2;
+
+                y = leftCorner + j - offset;
+            } else if (j < sideSize * 3 - 3) {
+                const offset = sideSize * 2 - 3;
+
+                x = leftCorner + j - offset;
+                y = leftCorner + sideSize - 1;
+            } else if (j < perimeter) {
+                const offset = sideSize * 4 - 5;
+
+                x = leftCorner + sideSize - 1;
+                y = leftCorner - j + offset;
+            }
+
+            logFunction(matrix[x][y]);
+            debugger;
         }
     }
-}
-
-function getSquareFromMatrix(matrix, sideSize) {
-
 }
 
 module.exports = spiralMatrixLog;
